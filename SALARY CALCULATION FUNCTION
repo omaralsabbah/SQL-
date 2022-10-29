@@ -1,0 +1,16 @@
+create or replace function calc_sal(p_date date,p_sal number) return number
+is 
+v_nowsal number;
+v_tolast number;
+
+begin
+
+v_tolast:= last_day(p_date)-p_date;
+v_nowsal:= p_sal-(v_tolast * p_sal/TO_NUMBER(TO_CHAR(last_day(p_date),'dd')));
+
+return v_nowsal;
+end;
+
+BEGIN
+DBMS_OUTPUT.PUT_LINE('SALARY IS ' || calc_sal(SYSDATE,310));
+END;
